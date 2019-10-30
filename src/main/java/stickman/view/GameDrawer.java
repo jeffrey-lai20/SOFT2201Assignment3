@@ -116,7 +116,7 @@ public class GameDrawer {
         Text winner = new Text();
         winner.setText("Winner");
         winner.setFont(new Font(50));
-        winner.setX(width / 2 - 100);
+        winner.setX(width / 2 - 75);
         winner.setY(height / 2);
         pane.getChildren().add(winner);
         DecimalFormat df = new DecimalFormat("#");

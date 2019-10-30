@@ -16,6 +16,9 @@ public class GameEngineImpl implements GameEngine {
   private double totalScore = 0;
   private double currentScore = 0;
 
+  private Originator originator = new Originator();
+  private CareTaker careTaker = new CareTaker();
+
   public GameEngineImpl(String configPath) {
 
     provider = new ConfigurationProvider(configPath);
@@ -119,5 +122,18 @@ public class GameEngineImpl implements GameEngine {
   @Override
   public void killScore() {
     currentScore += 100;
+  }
+
+  @Override
+  public void saveGame() {
+    originator.setState(currentLevel);
+    careTaker.add(originator.saveStateToMemento());
+  }
+
+  @Override
+  public void quickLoad() {
+    originator.getStateFromMemento(careTaker.get(careTaker.size()-1));
+    this.currentLevel = originator.getState();
+    currentLevel.start(currentLevel.getProvider());
   }
 }

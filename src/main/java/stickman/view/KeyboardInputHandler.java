@@ -20,6 +20,9 @@ class KeyboardInputHandler {
 
   private Map<String, MediaPlayer> sounds = new HashMap<>();
 
+  private boolean save = false;
+  private boolean load = false;
+
   KeyboardInputHandler(GameEngine model) {
 
     this.model = model;
@@ -49,6 +52,12 @@ class KeyboardInputHandler {
       left = true;
     } else if (keyEvent.getCode().equals(KeyCode.RIGHT)) {
       right = true;
+    } else if (keyEvent.getCode().equals(KeyCode.S)) {
+      System.out.println("Aye s");
+      save = true;
+    } else if (keyEvent.getCode().equals(KeyCode.Q)){
+      System.out.println("Aye q");
+      load = true;
     } else {
       return;
     }
@@ -59,8 +68,14 @@ class KeyboardInputHandler {
       } else {
         model.moveLeft();
       }
-    } else {
+    } else if (right) {
       model.moveRight();
+    }
+    if (save) {
+      model.saveGame();
+    }
+    if (load) {
+      model.quickLoad();
     }
   }
 
@@ -76,6 +91,12 @@ class KeyboardInputHandler {
       left = false;
     } else if (keyEvent.getCode().equals(KeyCode.RIGHT)) {
       right = false;
+    } else if (keyEvent.getCode().equals(KeyCode.S)) {
+      System.out.println("Aye s no");
+      save = false;
+    } else if (keyEvent.getCode().equals(KeyCode.Q)){
+      System.out.println("Aye  no");
+      load = false;
     } else {
       return;
     }

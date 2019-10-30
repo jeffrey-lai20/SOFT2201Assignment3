@@ -32,6 +32,7 @@ public class LevelImpl implements Level {
   private double target;
   private boolean isDead = false;
   private boolean enemyKill = false;
+  private ConfigurationProvider provider;
 
   public LevelImpl(ConfigurationProvider provider) {
 
@@ -43,6 +44,8 @@ public class LevelImpl implements Level {
     this.width = levelData.getWidth();
     this.floorHeight = levelData.getFloorHeight();
     this.target = levelData.getTarget();
+
+    this.provider = provider;
   }
 
   @Override
@@ -195,5 +198,10 @@ public class LevelImpl implements Level {
   @Override
   public void noKill() {
     enemyKill = false;
+  }
+
+  @Override
+  public ConfigurationProvider getProvider() {
+    return provider;
   }
 }

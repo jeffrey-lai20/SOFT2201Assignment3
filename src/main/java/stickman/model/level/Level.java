@@ -114,4 +114,6 @@ public interface Level {
 
   void noKill();
 
+  ConfigurationProvider getProvider();
+
 }

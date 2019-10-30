@@ -54,4 +54,7 @@ public interface GameEngine {
   double getLevelScore();
 
   void killScore();
+
+  void saveGame();
+  void quickLoad();
 }
