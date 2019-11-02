@@ -1,6 +1,7 @@
 package stickman.model.entity;
 
 import javafx.geometry.Rectangle2D;
+import stickman.model.entity.strategy.EnemyStrategy;
 import stickman.model.level.Level;
 import stickman.model.level.collision.CollisionDirection;
 
@@ -109,4 +110,8 @@ public interface Entity {
    * @return true if the entity acknowledges and responds to the collision
    */
   boolean handleCollision(Entity other, CollisionDirection direction, Level level);
+
+  EnemyStrategy getStrategy();
+
+  double getVelocity();
 }

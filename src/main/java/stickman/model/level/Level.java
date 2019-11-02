@@ -4,7 +4,10 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 import stickman.config.ConfigurationProvider;
+import stickman.model.entity.Controllable;
 import stickman.model.entity.Entity;
+import stickman.model.entity.spawner.EntitySpawner;
+import stickman.model.level.collision.CollisionHandler;
 
 /** The Level interface */
 public interface Level {
@@ -114,6 +117,14 @@ public interface Level {
 
   void noKill();
 
-  ConfigurationProvider getProvider();
+  EntitySpawner getEntitySpawner();
+
+  CollisionHandler getCollisionHandler();
+
+  Controllable getHero();
+
+  boolean getIsFinish();
+
+  boolean getEnemyKill();
 
 }

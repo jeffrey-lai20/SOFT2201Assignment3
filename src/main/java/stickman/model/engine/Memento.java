@@ -1,7 +1,6 @@
 package stickman.model.engine;
 
 import stickman.model.level.Level;
-import stickman.model.level.LevelImpl;
 
 public class Memento {
     private Level state;
@@ -11,7 +10,8 @@ public class Memento {
     }
 
     public Level getState() {
-        Level currentLevel = new LevelImpl(state.getProvider());
+
+        Level currentLevel = Originator.initState(state);
         return currentLevel;
     }
 }

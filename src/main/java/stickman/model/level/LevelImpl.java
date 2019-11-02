@@ -32,7 +32,6 @@ public class LevelImpl implements Level {
   private double target;
   private boolean isDead = false;
   private boolean enemyKill = false;
-  private ConfigurationProvider provider;
 
   public LevelImpl(ConfigurationProvider provider) {
 
@@ -44,8 +43,29 @@ public class LevelImpl implements Level {
     this.width = levelData.getWidth();
     this.floorHeight = levelData.getFloorHeight();
     this.target = levelData.getTarget();
+  }
 
-    this.provider = provider;
+  public LevelImpl(EntitySpawner entitySpawner, CollisionHandler collisionHandler, List<Entity> entities,
+                    Controllable hero, double width, double floorHeight, Instant startTime, int levelNum,
+                    boolean isFinish, double target, boolean isDead, boolean enemyKill) {
+    this.entitySpawner = entitySpawner;
+    this.collisionHandler = collisionHandler;
+
+    this.entities = new ArrayList<>();
+    this.hero = hero;
+    this.entities.add(hero);
+    entities.remove(0);
+    this.entities.addAll(entities);
+
+    this.width = width;
+    this.floorHeight = floorHeight;
+    this.startTime = startTime;
+
+    this.levelNum = levelNum;
+    this.isFinish = isFinish;
+    this.target = target;
+    this.isDead = isDead;
+    this.enemyKill = enemyKill;
   }
 
   @Override
@@ -201,7 +221,28 @@ public class LevelImpl implements Level {
   }
 
   @Override
-  public ConfigurationProvider getProvider() {
-    return provider;
+  public EntitySpawner getEntitySpawner() {
+    return entitySpawner;
   }
+
+  @Override
+  public CollisionHandler getCollisionHandler() {
+    return collisionHandler;
+  }
+
+  @Override
+  public Controllable getHero() {
+    return hero;
+  }
+
+  @Override
+  public boolean getIsFinish() {
+    return isFinish;
+  }
+
+  @Override
+  public boolean getEnemyKill() {
+    return enemyKill;
+  }
+
 }

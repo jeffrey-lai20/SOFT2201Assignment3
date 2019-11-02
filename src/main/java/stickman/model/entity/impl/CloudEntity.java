@@ -1,5 +1,6 @@
 package stickman.model.entity.impl;
 
+import stickman.model.entity.strategy.EnemyStrategy;
 import stickman.model.level.Level;
 import stickman.view.GameManager;
 
@@ -23,5 +24,15 @@ public class CloudEntity extends AbstractEntity {
   @Override
   public void move(Level level) {
     this.setXPos(this.getXPos() + this.velocity);
+  }
+
+  @Override
+  public EnemyStrategy getStrategy() {
+    return null;
+  }
+
+  @Override
+  public double getVelocity() {
+    return velocity;
   }
 }

@@ -101,4 +101,6 @@ public interface Controllable extends Entity {
 
   /** Updates the controllable's movement. */
   void update();
+
+  int getLives();
 }

@@ -70,7 +70,12 @@ public class EnemyEntity extends AbstractEntity implements Damageable {
   }
 
   // exposed for testing
+  @Override
   public EnemyStrategy getStrategy() {
     return strategy;
+  }
+  @Override
+  public double getVelocity() {
+    return Double.NaN;
   }
 }

@@ -15,6 +15,9 @@ public class GameEngineImpl implements GameEngine {
   private boolean winner = false;
   private double totalScore = 0;
   private double currentScore = 0;
+  private double scoreBuffer = 0;
+  private double savedTotalScore = 0;
+  private double savedCurrentScore = 0;
 
   private Originator originator = new Originator();
   private CareTaker careTaker = new CareTaker();
@@ -92,7 +95,6 @@ public class GameEngineImpl implements GameEngine {
       currentLevel.noKill();
     }
     currentLevel.tick();
-
   }
 
   @Override
@@ -113,7 +115,10 @@ public class GameEngineImpl implements GameEngine {
   @Override
   public double getLevelScore() {
     Duration dur = Duration.between(currentLevel.getStartTime(), Instant.now());
+
     if (currentScore-currentLevel.prettyTimeFormat(dur) <= 0) {
+      currentScore = 0;
+      scoreBuffer = currentLevel.prettyTimeFormat(dur);
       return 0;
     }
     return currentScore-currentLevel.prettyTimeFormat(dur);
@@ -121,19 +126,29 @@ public class GameEngineImpl implements GameEngine {
 
   @Override
   public void killScore() {
-    currentScore += 100;
+    if (currentScore <= 0) currentScore = 100 + scoreBuffer;
+    else currentScore += 100;
   }
 
   @Override
   public void saveGame() {
     originator.setState(currentLevel);
     careTaker.add(originator.saveStateToMemento());
+    savedCurrentScore = currentScore;
+    savedTotalScore = totalScore;
   }
 
   @Override
   public void quickLoad() {
-    originator.getStateFromMemento(careTaker.get(careTaker.size()-1));
-    this.currentLevel = originator.getState();
-    currentLevel.start(currentLevel.getProvider());
+    try {
+
+        originator.getStateFromMemento(careTaker.get(careTaker.size()-1));
+        currentLevel = originator.getState();
+        currentScore = savedCurrentScore;
+        totalScore = savedTotalScore;
+    } catch (Exception e) {
+      System.out.println("Error: Save needs to be used before load. No valid saved state found.");
+    }
+
   }
 }

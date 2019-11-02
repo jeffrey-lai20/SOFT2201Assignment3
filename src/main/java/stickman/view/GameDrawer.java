@@ -138,7 +138,7 @@ public class GameDrawer {
       time.setFont(new Font(20));
       time.setX(30);
       time.setY(30);
-      lives.setText("Lives: Do I need to show? idk");
+      lives.setText("Lives: Remove me");
       lives.setFont(new Font(20));
       lives.setX(width-100);
       lives.setY(30);

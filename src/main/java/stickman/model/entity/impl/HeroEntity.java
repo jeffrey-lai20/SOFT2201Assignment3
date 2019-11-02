@@ -8,6 +8,7 @@ import stickman.model.entity.movement.JumpMovementHandler;
 import stickman.model.entity.movement.MovementHandler;
 import stickman.model.entity.movement.MovementTriggerHandler;
 import stickman.model.entity.movement.SimpleMovementHandler;
+import stickman.model.entity.strategy.EnemyStrategy;
 import stickman.model.level.Level;
 import stickman.model.level.collision.CollisionDirection;
 
@@ -309,5 +310,14 @@ public class HeroEntity extends AbstractEntity implements Controllable, Damageab
           return Constants.HERO_DEFAULT_HEIGHT * 2;
       }
     }
+  }
+
+  @Override
+  public EnemyStrategy getStrategy() {
+    return null;
+  }
+  @Override
+  public double getVelocity() {
+    return Double.NaN;
   }
 }

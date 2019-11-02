@@ -53,15 +53,18 @@ class KeyboardInputHandler {
     } else if (keyEvent.getCode().equals(KeyCode.RIGHT)) {
       right = true;
     } else if (keyEvent.getCode().equals(KeyCode.S)) {
-      System.out.println("Aye s");
       save = true;
     } else if (keyEvent.getCode().equals(KeyCode.Q)){
-      System.out.println("Aye q");
       load = true;
     } else {
       return;
     }
-
+    if (save) {
+      model.saveGame();
+    }
+    if (load) {
+      model.quickLoad();
+    }
     if (left) {
       if (right) {
         model.stopMoving();
@@ -71,12 +74,7 @@ class KeyboardInputHandler {
     } else if (right) {
       model.moveRight();
     }
-    if (save) {
-      model.saveGame();
-    }
-    if (load) {
-      model.quickLoad();
-    }
+
   }
 
   /**
@@ -92,10 +90,8 @@ class KeyboardInputHandler {
     } else if (keyEvent.getCode().equals(KeyCode.RIGHT)) {
       right = false;
     } else if (keyEvent.getCode().equals(KeyCode.S)) {
-      System.out.println("Aye s no");
       save = false;
     } else if (keyEvent.getCode().equals(KeyCode.Q)){
-      System.out.println("Aye  no");
       load = false;
     } else {
       return;
