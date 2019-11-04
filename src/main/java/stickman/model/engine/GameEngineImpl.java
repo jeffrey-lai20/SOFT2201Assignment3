@@ -4,6 +4,8 @@ import stickman.config.ConfigurationProvider;
 import stickman.model.level.Level;
 import stickman.model.level.LevelImpl;
 
+import java.io.FileNotFoundException;
+import java.net.FileNameMap;
 import java.time.Duration;
 import java.time.Instant;
 
@@ -18,15 +20,15 @@ public class GameEngineImpl implements GameEngine {
   private double scoreBuffer = 0;
   private double savedTotalScore = 0;
   private double savedCurrentScore = 0;
-
   private Originator originator = new Originator();
   private CareTaker careTaker = new CareTaker();
+  private double levels;
+  private int currentLevelNum = 0;
 
   public GameEngineImpl(String configPath) {
-
     provider = new ConfigurationProvider(configPath);
     currentLevel = new LevelImpl(provider);
-
+    this.levels = currentLevel.getLevels();
     startLevel();
   }
 
@@ -38,35 +40,27 @@ public class GameEngineImpl implements GameEngine {
   @Override
   public void startLevel() {
     if (!winner) {
-      if (currentLevel.getLevelNum() == 1) {
+      if (currentLevelNum == 0) {
         totalScore = 0;
         currentScore = currentLevel.getTarget();
         currentLevel.start(provider);
-      } else if (currentLevel.getLevelNum() == 2) {
-
-        provider = new ConfigurationProvider("level2.json");
-//      totalScore = totalScore + currentLevel.getTarget();
+        this.currentLevelNum = 1;
+      } else if (currentLevelNum < levels) {
+        currentLevelNum++;
+        char levelNum = (char) (currentLevelNum + '0');
+        provider = new ConfigurationProvider("level" + levelNum + ".json");
         totalScore += getLevelScore();
         currentLevel = new LevelImpl(provider);
-        currentLevel.setLevelNum(2);
+        currentLevel.setLevelNum(currentLevelNum);
         currentScore = currentLevel.getTarget();
         currentLevel.start(provider);
-      } else if (currentLevel.getLevelNum() == 3) {
-        provider = new ConfigurationProvider("level3.json");
-//      totalScore = totalScore + currentLevel.getTarget();
-        totalScore += getLevelScore();
-
-        currentLevel = new LevelImpl(provider);
-        currentLevel.setLevelNum(3);
-        currentScore = currentLevel.getTarget();
-        currentLevel.start(provider);
-      } else {
-        totalScore += getLevelScore();
-        winner = true;
+        System.out.println("It is now" + currentLevelNum);
+        } else {
+          totalScore += getLevelScore();
+          winner = true;
+        }
       }
     }
-
-  }
 
   @Override
   public boolean jump() {
@@ -140,15 +134,15 @@ public class GameEngineImpl implements GameEngine {
 
   @Override
   public void quickLoad() {
-    try {
-
+    if (!isFinish() && !currentLevel.getIsDead()) {
+      try {
         originator.getStateFromMemento(careTaker.get(careTaker.size()-1));
         currentLevel = originator.getState();
         currentScore = savedCurrentScore;
         totalScore = savedTotalScore;
-    } catch (Exception e) {
-      System.out.println("Error: Save needs to be used before load. No valid saved state found.");
+      } catch (Exception e) {
+        System.out.println("Error: Save needs to be used before load. No valid saved state found.");
+      }
     }
-
   }
 }

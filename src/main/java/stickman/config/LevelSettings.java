@@ -9,12 +9,14 @@ public class LevelSettings {
   private double width;
   private double floorHeight;
   private double target;
+  private double levels;
 
-  public LevelSettings(JSONObject entityData, double width, double floorHeight, double target) {
+  public LevelSettings(JSONObject entityData, double width, double floorHeight, double target, double levels) {
     this.entityData = entityData;
     this.width = width;
     this.floorHeight = floorHeight;
     this.target = target;
+    this.levels = levels;
   }
 
   /**
@@ -46,5 +48,9 @@ public class LevelSettings {
 
   public double getTarget() {
     return target;
+  }
+
+  public double getLevels() {
+    return levels;
   }
 }

@@ -127,4 +127,5 @@ public interface Level {
 
   boolean getEnemyKill();
 
+  double getLevels();
 }

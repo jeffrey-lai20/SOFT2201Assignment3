@@ -20,7 +20,8 @@ public class LevelSettingsParser {
     JSONObject entityData = null;
     double width = 1000.0;
     double floorHeight = 350.0;
-    double target = 60;
+    double target = 30;
+    double levels = 1;
 
     // check that settings data exists
     JSONObject settingsData = ConfigurationUtils.toJSONObject(configObject.get("settings"));
@@ -57,6 +58,11 @@ public class LevelSettingsParser {
       target = newTarget;
     }
 
-    return new LevelSettings(entityData, width, floorHeight, target);
+    Double newLevels = ConfigurationUtils.parseDoubleFromObject(settingsData, "levels");
+    if (newLevels != null) {
+      levels = newLevels;
+    }
+
+    return new LevelSettings(entityData, width, floorHeight, target, levels);
   }
 }

@@ -1,6 +1,5 @@
 package stickman.model.level;
 
-import java.text.DecimalFormat;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -9,7 +8,6 @@ import stickman.config.ConfigurationProvider;
 import stickman.config.LevelSettings;
 import stickman.model.entity.Controllable;
 import stickman.model.entity.Entity;
-import stickman.model.entity.impl.EnemyEntity;
 import stickman.model.entity.spawner.EntitySpawner;
 import stickman.model.entity.spawner.EntitySpawnerImpl;
 import stickman.model.level.collision.CollisionHandler;
@@ -32,6 +30,7 @@ public class LevelImpl implements Level {
   private double target;
   private boolean isDead = false;
   private boolean enemyKill = false;
+  private double levels;
 
   public LevelImpl(ConfigurationProvider provider) {
 
@@ -43,6 +42,7 @@ public class LevelImpl implements Level {
     this.width = levelData.getWidth();
     this.floorHeight = levelData.getFloorHeight();
     this.target = levelData.getTarget();
+    this.levels = levelData.getLevels();
   }
 
   public LevelImpl(EntitySpawner entitySpawner, CollisionHandler collisionHandler, List<Entity> entities,
@@ -81,26 +81,13 @@ public class LevelImpl implements Level {
 
   @Override
   public void finish(String outcome) {
-    int repeat;
     if ("DEATH".equals(outcome.toUpperCase())) {
-//      System.out.println("\n=== YOU DIED! ===");
-//      System.out.println("Oops! You should be more careful next time.");
-      repeat = 17;
       isDead = true;
       stopMoving();
     } else {
-//      System.out.println("\n=== YOU WON! ===");
-//      System.out.println("Congratulations! You finished the level.");
-      repeat = 16;
       levelNum++;
       isFinish = true;
     }
-
-//    Duration elapsed = Duration.between(startTime, Instant.now());
-//    System.out.println("Your time: " + prettyTimeFormat(elapsed));
-//    System.out.println("=".repeat(repeat));
-
-//    System.exit(0);
   }
 
   @Override
@@ -245,4 +232,8 @@ public class LevelImpl implements Level {
     return enemyKill;
   }
 
+  @Override
+  public double getLevels() {
+    return levels;
+  }
 }

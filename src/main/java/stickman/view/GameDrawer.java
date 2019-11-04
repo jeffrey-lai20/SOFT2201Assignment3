@@ -30,7 +30,7 @@ public class GameDrawer {
 
   private List<EntityView> entityViews;
 
-  private Text time, lives, score, totalScore;
+  private Text time, score, totalScore;
   private int quit = 0;
 
   public GameDrawer(GameEngine model, Pane pane, BackgroundDrawer backgroundDrawer, int width, int height) {
@@ -44,10 +44,9 @@ public class GameDrawer {
     this.entityViews = new ArrayList<>();
 
     time = new Text();
-    lives = new Text();
     score = new Text();
     totalScore = new Text();
-    this.pane.getChildren().addAll(time, lives, score, totalScore);
+    this.pane.getChildren().addAll(time, score, totalScore);
   }
 
   /** Draws and updates all currently displayed EntityView objects. */
@@ -138,10 +137,6 @@ public class GameDrawer {
       time.setFont(new Font(20));
       time.setX(30);
       time.setY(30);
-      lives.setText("Lives: Remove me");
-      lives.setFont(new Font(20));
-      lives.setX(width-100);
-      lives.setY(30);
       score.setText("Score: " + df.format(model.getLevelScore()));
       score.setFont(new Font(20));
       score.setX(150);

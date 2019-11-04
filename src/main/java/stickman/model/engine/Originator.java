@@ -40,12 +40,9 @@ public class Originator {
     }
 
     static Level initState(Level state) {
-//        ConfigurationProvider provider = state.getProvider();
-//        System.out.println(provider.getLevelData().getEntityData().toJSONString());
         List<Entity> currentEntity = new ArrayList<>();
         for (int i = 0; i < state.getEntities().size(); i++) {
             Entity currentEnt = state.getEntities().get(i);
-//
             if (currentEnt.getStrategy() != null) {
                 Entity newEnt = new EnemyEntity(currentEnt.getImagePath(), currentEnt.getXPos(), currentEnt.getYPos(), currentEnt.getWidth(), currentEnt.getHeight(), currentEnt.getLayer(), currentEnt.getStrategy());
                 currentEntity.add(newEnt);
@@ -56,10 +53,7 @@ public class Originator {
             } else {
                 currentEntity.add(currentEnt);
             }
-
-
         }
-
         EntitySpawner currentEntitySpawner = state.getEntitySpawner();
         CollisionHandler currentCollisionHandler = state.getCollisionHandler();
 // HEY THIS IS RIGHT
