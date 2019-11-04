@@ -109,7 +109,6 @@ public class GameEngineImpl implements GameEngine {
   @Override
   public double getLevelScore() {
     Duration dur = Duration.between(currentLevel.getStartTime(), Instant.now());
-
     if (currentScore-currentLevel.prettyTimeFormat(dur) <= 0) {
       currentScore = 0;
       scoreBuffer = currentLevel.prettyTimeFormat(dur);

@@ -12,7 +12,7 @@ public interface GameEngine {
    */
   Level getCurrentLevel();
 
-  /** Loads and starts the current level */
+  /** Loads and starts the determined level */
   void startLevel();
 
   /**
@@ -46,15 +46,42 @@ public interface GameEngine {
   /** Calls the current level's tick method. */
   void tick();
 
+  /**
+   * Returns a flag to check if the level is finished or not.
+   * @return
+   */
   boolean isFinish();
 
+  /**
+   * Returns a flag to check if the game is won or not.
+   * @return
+   */
   boolean getWinner();
 
+  /**
+   * Returns the game's total score.
+   * @return
+   */
   double getTotalScore();
+
+  /**
+   * Returns the level's current score.
+   * @return
+   */
   double getLevelScore();
 
+  /**
+   * Adds to the level's score for a kill.
+   */
   void killScore();
 
+  /**
+   * Saves the game's current level and all its elements.
+   */
   void saveGame();
+
+  /**
+   * Loads the most recent saved level's state.
+   */
   void quickLoad();
 }

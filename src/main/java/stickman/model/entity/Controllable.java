@@ -102,5 +102,9 @@ public interface Controllable extends Entity {
   /** Updates the controllable's movement. */
   void update();
 
+  /**
+   * Returns the hero's current number of lives.
+   * @return
+   */
   int getLives();
 }

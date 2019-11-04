@@ -46,10 +46,18 @@ public class LevelSettings {
     return width;
   }
 
+  /**
+   * Gets the level's target score.
+   * @return
+   */
   public double getTarget() {
     return target;
   }
 
+  /**
+   * Gets the number of levels.
+   * @return
+   */
   public double getLevels() {
     return levels;
   }

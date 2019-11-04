@@ -1,11 +1,7 @@
 package stickman.model.engine;
 
-import stickman.config.ConfigurationProvider;
 import stickman.model.entity.Controllable;
 import stickman.model.entity.Entity;
-import stickman.model.entity.factory.EntityFactory;
-import stickman.model.entity.factory.EntityFactoryImpl;
-import stickman.model.entity.impl.AbstractEntity;
 import stickman.model.entity.impl.CloudEntity;
 import stickman.model.entity.impl.EnemyEntity;
 import stickman.model.entity.impl.HeroEntity;
@@ -19,26 +15,51 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Originator class to save and load the game.
+ */
 public class Originator {
 
     private Level state;
 
+    /**
+     * Sets the current state when saving.
+     * @param state
+     */
     public void setState(Level state) {
         this.state = initState(state);
     }
 
+    /**
+     * Returns the currently saved state.
+     * @return
+     */
     public Level getState() {
         return state;
     }
 
+    /**
+     * Adds the saved state to the memento.
+     * @return
+     */
     public Memento saveStateToMemento() {
         return new Memento(state);
     }
 
+    /**
+     * Returns the currently saved state from the memento.
+     * @param memento
+     */
     public void getStateFromMemento(Memento memento) {
         state = memento.getState();
     }
 
+    /**
+     * Deep copy of the current state of the game's current level.
+     * A new level holding the same attributes is returned.
+     * @param state
+     * @return
+     */
     static Level initState(Level state) {
         List<Entity> currentEntity = new ArrayList<>();
         for (int i = 0; i < state.getEntities().size(); i++) {
@@ -56,10 +77,8 @@ public class Originator {
         }
         EntitySpawner currentEntitySpawner = state.getEntitySpawner();
         CollisionHandler currentCollisionHandler = state.getCollisionHandler();
-// HEY THIS IS RIGHT
         Controllable currentHero = state.getHero();
         Controllable savedHero = new HeroEntity(currentHero.getImagePath(), currentHero.getXPos(), currentHero.getYPos(), currentHero.getWidth(), currentHero.getHeight(), currentHero.getLayer(), currentHero.getLives());
-      // HEY THIS IS RIGHT
         Instant currentStartTime = Instant.now().minusSeconds(state.getStartTime().getEpochSecond());
         int currentLevelNum = state.getLevelNum();
         boolean currentIsFinish = state.getIsFinish();

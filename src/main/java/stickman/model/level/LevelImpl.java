@@ -164,7 +164,6 @@ public class LevelImpl implements Level {
   @Override
   public Long prettyTimeFormat(Duration duration) {
     return duration.getSeconds();
-//    return duration.toString().substring(2).replaceAll("(\\d[HMS])(?!$)", "$1 ").toLowerCase();
   }
 
   @Override

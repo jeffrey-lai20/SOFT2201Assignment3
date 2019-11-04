@@ -106,8 +106,10 @@ public class GameDrawer {
     }
     entityViews.removeIf(EntityView::isMarkedForDelete);
 
-
-
+    /**
+     * Displays text on the window, illustrating time passed, score for the level, total score for the game,
+     * illustrating "Winner" upon completion of the game, and illustrating "Game Over" upon losing the game.
+     */
     if (model.isFinish()) {
       model.startLevel();
       if (model.getWinner()) {

@@ -99,33 +99,92 @@ public interface Level {
   /** Updates the position of all entities in the level. */
   void tick();
 
+  /**
+   * Returns the current time.
+   * @param duration
+   * @return
+   */
   Long prettyTimeFormat(Duration duration);
 
+  /**
+   * Returns the number level.
+   * @return
+   */
   int getLevelNum();
 
+  /**
+   * Sets the level's number level.
+   * @param levelNum
+   */
   void setLevelNum(int levelNum);
 
+  /**
+   * Flag showing whether the level is finished or not.
+   * @return
+   */
   boolean isFinish();
 
+  /**
+   * Returns the target time for the level.
+   * @return
+   */
   double getTarget();
 
+  /**
+   * Flag showing whether the hero is dead or not.
+   * @return
+   */
   boolean getIsDead();
 
+  /**
+   * Flag showing whether the hero has killed an enemy or not.
+   * @return
+   */
   boolean enemyKill();
 
+  /**
+   * Sets the flag to determine the hero has killed an enemy.
+   */
   void killedEnemy();
 
+  /**
+   * Sets the flag to determine the hero has not killed an enemy.
+   */
   void noKill();
 
+  /**
+   * Returns the level's EntitySpawner.
+   * @return
+   */
   EntitySpawner getEntitySpawner();
 
+  /**
+   * Returns the level's CollisionHandler
+   * @return
+   */
   CollisionHandler getCollisionHandler();
 
+  /**
+   * Returns the level's hero.
+   * @return
+   */
   Controllable getHero();
 
+  /**
+   * Returns the flag determining if the level is finished or not.
+   * @return
+   */
   boolean getIsFinish();
 
+  /**
+   * Returns the flag determining if the hero has killed an enemy or not.
+   * @return
+   */
   boolean getEnemyKill();
 
+  /**
+   * Returns the max number of levels for the game.
+   * @return
+   */
   double getLevels();
 }

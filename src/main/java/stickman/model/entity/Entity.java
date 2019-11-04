@@ -111,7 +111,15 @@ public interface Entity {
    */
   boolean handleCollision(Entity other, CollisionDirection direction, Level level);
 
+  /**
+   * Returns the Entity's strategy if it has one.
+   * @return
+   */
   EnemyStrategy getStrategy();
 
+  /**
+   * Returns the Entity's velocity if it has one.
+   * @return
+   */
   double getVelocity();
 }
