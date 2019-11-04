@@ -24,6 +24,7 @@ public class GameEngineImpl implements GameEngine {
   private CareTaker careTaker = new CareTaker();
   private double levels;
   private int currentLevelNum = 0;
+  private int savedLevelNum = 0;
 
   public GameEngineImpl(String configPath) {
     provider = new ConfigurationProvider(configPath);
@@ -54,7 +55,6 @@ public class GameEngineImpl implements GameEngine {
         currentLevel.setLevelNum(currentLevelNum);
         currentScore = currentLevel.getTarget();
         currentLevel.start(provider);
-        System.out.println("It is now" + currentLevelNum);
         } else {
           totalScore += getLevelScore();
           winner = true;
@@ -129,6 +129,7 @@ public class GameEngineImpl implements GameEngine {
     careTaker.add(originator.saveStateToMemento());
     savedCurrentScore = currentScore;
     savedTotalScore = totalScore;
+    savedLevelNum = currentLevelNum;
   }
 
   @Override
@@ -139,6 +140,7 @@ public class GameEngineImpl implements GameEngine {
         currentLevel = originator.getState();
         currentScore = savedCurrentScore;
         totalScore = savedTotalScore;
+        currentLevelNum = savedLevelNum;
       } catch (Exception e) {
         System.out.println("Error: Save needs to be used before load. No valid saved state found.");
       }
